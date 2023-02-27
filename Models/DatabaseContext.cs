@@ -9,7 +9,7 @@ namespace TamagotchiAPI.Models
     {
         //Add database table models here:
         public DbSet<Pet> Pets { get; set; }
-        public DbSet<PlayTime> PlayTimes { get; set; }
+        public DbSet<Playtime> Playtimes { get; set; }
         public DbSet<Feeding> Feedings { get; set; }
         public DbSet<Scolding> Scoldings { get; set; }
 

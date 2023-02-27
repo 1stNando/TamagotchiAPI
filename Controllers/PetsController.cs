@@ -36,11 +36,10 @@ namespace TamagotchiAPI.Controllers
             // Uses the database context in `_context` to request all of the Pets, sort
             // them by row id and return them as a JSON array.
             return await _context.Pets.OrderBy(row => row.Id)
-
             .Include(pet => pet.Playtimes)
-
+            .Include(pet => pet.Feedings)
+            .Include(Pet => pet.Scoldings)
             .ToListAsync();
-
 
         }
 
@@ -172,11 +171,12 @@ namespace TamagotchiAPI.Controllers
             return _context.Pets.Any(pet => pet.Id == id);
         }
 
-        ///////////////////////////////////////////////////Playtimes POST, ++5 to HappinessLevel and ++3 to ///HungerLevel to the desired PetId.
-        //We want this to create a new Playtime for the pet with current time.
+        //////NESTED CONTROLLERS BELLOW:---------------------------------------------
         [HttpPost("{id}/Playtimes")]
-        public async Task<ActionResult<PlayTime>> PostPlaytime(int id)
+        public async Task<ActionResult<Playtime>> PostPlaytime(int id)
         {
+            var playtime = new Playtime();
+
             var pet = await _context.Pets.FindAsync(id);
 
             if (pet == null)
@@ -185,9 +185,15 @@ namespace TamagotchiAPI.Controllers
                 return NotFound();
             }
             else
-            {
+            {//code to
+                playtime.PetId = pet.Id;
+                playtime.When = DateTime.Now;
                 pet.HappinessLevel += 5;
                 pet.HungerLevel += 3;
+
+                _context.Playtimes.Add(playtime);
+                await _context.SaveChangesAsync();
+                return Ok(playtime);
             };
 
 
