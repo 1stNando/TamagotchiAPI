@@ -9,9 +9,9 @@ namespace TamagotchiAPI.Models
     {
         //Add database table models here:
         public DbSet<Pet> Pets { get; set; }
-        public DbSet<PlayTimes> PlayTimes { get; set; }
-        public DbSet<Feedings> Feedings { get; set; }
-        public DbSet<Scoldings> Scoldings { get; set; }
+        public DbSet<PlayTime> PlayTimes { get; set; }
+        public DbSet<Feeding> Feedings { get; set; }
+        public DbSet<Scolding> Scoldings { get; set; }
 
         // Change this if you want to have a different database name in development
         private static string DEVELOPMENT_DATABASE_NAME = "TamagotchiAPIDatabase";

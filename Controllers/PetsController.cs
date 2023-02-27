@@ -35,7 +35,13 @@ namespace TamagotchiAPI.Controllers
         {
             // Uses the database context in `_context` to request all of the Pets, sort
             // them by row id and return them as a JSON array.
-            return await _context.Pets.OrderBy(row => row.Id).ToListAsync();
+            return await _context.Pets.OrderBy(row => row.Id)
+
+            .Include(pet => pet.Playtimes)
+
+            .ToListAsync();
+
+
         }
 
         // GET: api/Pets/5
@@ -169,7 +175,7 @@ namespace TamagotchiAPI.Controllers
         ///////////////////////////////////////////////////Playtimes POST, ++5 to HappinessLevel and ++3 to ///HungerLevel to the desired PetId.
         //We want this to create a new Playtime for the pet with current time.
         [HttpPost("{id}/Playtimes")]
-        public async Task<ActionResult<PlayTimes>> PostPlaytime(int id)
+        public async Task<ActionResult<PlayTime>> PostPlaytime(int id)
         {
             var pet = await _context.Pets.FindAsync(id);
 
@@ -205,7 +211,7 @@ namespace TamagotchiAPI.Controllers
         }
 
         [HttpPost("{id}/Feedings")]
-        public async Task<ActionResult<Feedings>> PostFeeding(int id)
+        public async Task<ActionResult<Feeding>> PostFeeding(int id)
         {
             var pet = await _context.Pets.FindAsync(id);
 
@@ -223,7 +229,7 @@ namespace TamagotchiAPI.Controllers
         }
 
         [HttpPost("{id}/Scoldings")]
-        public async Task<ActionResult<Scoldings>> PostScolding(int id)
+        public async Task<ActionResult<Scolding>> PostScolding(int id)
         {
             var pet = await _context.Pets.FindAsync(id);
 
