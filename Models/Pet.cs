@@ -10,5 +10,8 @@ namespace TamagotchiAPI.Models
         public DateTime Birthday { get; set; } = DateTime.Now;
         public int HungerLevel { get; set; } = 0;
         public int HappinessLevel { get; set; } = 0;
+
+        public List<Feedings> Feedings { get; set; }
+        public List<PlayTimes> PlayTimes { get; set; }
     }
 }

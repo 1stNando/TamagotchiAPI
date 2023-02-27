@@ -11,6 +11,9 @@ namespace TamagotchiAPI
 {
     public class Startup
     {
+
+
+
         // When the system starts up, we will be given a configuration variable.
         // we will save this in a property named `Configuration`
         public Startup(IConfiguration configuration)

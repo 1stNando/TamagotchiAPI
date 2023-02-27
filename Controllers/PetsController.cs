@@ -13,7 +13,7 @@ namespace TamagotchiAPI.Controllers
     // That is what "api/[controller]" means below. It uses the name of the controller
     // in this case PetsController to determine the URL
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController] //http://localhost:5000/index.html
     public class PetsController : ControllerBase
     {
         // This is the variable you use to have access to your database
@@ -165,5 +165,84 @@ namespace TamagotchiAPI.Controllers
         {
             return _context.Pets.Any(pet => pet.Id == id);
         }
+
+        ///////////////////////////////////////////////////Playtimes POST, ++5 to HappinessLevel and ++3 to ///HungerLevel to the desired PetId.
+        //We want this to create a new Playtime for the pet with current time.
+        [HttpPost("{id}/Playtimes")]
+        public async Task<ActionResult<PlayTimes>> PostPlaytime(int id)
+        {
+            var pet = await _context.Pets.FindAsync(id);
+
+            if (pet == null)
+            {
+                // There wasn't a pet with that id so return a `404` not found
+                return NotFound();
+            }
+            else
+            {
+                pet.HappinessLevel += 5;
+                pet.HungerLevel += 3;
+            };
+
+
+            //Playtime current time??
+            // var playTime = new PlayTimes();
+
+            // playTime.When = DateTime.Now;
+
+            // playTime.PetId = id;
+
+            // _context.PlayTimes.Add(playTime);
+            // await _context.SaveChangesAsync();
+
+            //_context.Entry(pet).State = EntityState.Modified;
+
+            //_context.PlayTimes.Add(PlayTimes);
+
+            await _context.SaveChangesAsync();
+
+            return Ok(pet);
+        }
+
+        [HttpPost("{id}/Feedings")]
+        public async Task<ActionResult<Feedings>> PostFeeding(int id)
+        {
+            var pet = await _context.Pets.FindAsync(id);
+
+            if (pet == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                pet.HungerLevel -= 5;
+                pet.HappinessLevel += 3;
+            }
+
+            return Ok(pet);
+        }
+
+        [HttpPost("{id}/Scoldings")]
+        public async Task<ActionResult<Scoldings>> PostScolding(int id)
+        {
+            var pet = await _context.Pets.FindAsync(id);
+
+            if (pet == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                pet.HappinessLevel -= 5;
+            }
+
+            // Indicate to the database context we want to add this new record
+            _context.Scoldings.Add(id);//???????????????????????
+            await _context.SaveChangesAsync();
+
+            return Ok(pet);
+        }
+
+
     }
 }
