@@ -196,7 +196,7 @@ namespace TamagotchiAPI.Controllers
                 return Ok(playtime);
             };
 
-
+            //BELOW IS MY FIRST ATTEMPT AT APPLYING THE LOGIC 
             //Playtime current time??
             // var playTime = new PlayTimes();
 
@@ -211,14 +211,15 @@ namespace TamagotchiAPI.Controllers
 
             //_context.PlayTimes.Add(PlayTimes);
 
-            await _context.SaveChangesAsync();
+            // await _context.SaveChangesAsync();
 
-            return Ok(pet);
+            // return Ok(pet);
         }
 
         [HttpPost("{id}/Feedings")]
         public async Task<ActionResult<Feeding>> PostFeeding(int id)
         {
+            var feedingPet = new Feeding();
             var pet = await _context.Pets.FindAsync(id);
 
             if (pet == null)
@@ -227,11 +228,17 @@ namespace TamagotchiAPI.Controllers
             }
             else
             {
+                feedingPet.PetId = pet.Id;
+                feedingPet.When = DateTime.Now;
                 pet.HungerLevel -= 5;
                 pet.HappinessLevel += 3;
-            }
 
-            return Ok(pet);
+                //context save code logic:
+                _context.Feedings.Add(feedingPet);
+                await _context.SaveChangesAsync();
+
+                return Ok(feedingPet);
+            }
         }
 
         [HttpPost("{id}/Scoldings")]
