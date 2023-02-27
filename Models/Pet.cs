@@ -11,7 +11,8 @@ namespace TamagotchiAPI.Models
         public int HungerLevel { get; set; } = 0;
         public int HappinessLevel { get; set; } = 0;
 
-        public List<Feedings> Feedings { get; set; }
-        public List<PlayTimes> PlayTimes { get; set; }
+        public List<Feeding> Feedings { get; set; }
+        public List<PlayTime> PlayTimes { get; set; }
+        public List<Scolding> Scoldings { get; set; }
     }
 }

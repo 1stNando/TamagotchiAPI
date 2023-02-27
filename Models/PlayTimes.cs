@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TamagotchiAPI.Models
 {
-    public class PlayTimes
+    public class PlayTime
     {
         public int Id { get; set; }
         public DateTime When { get; set; } = DateTime.Now;
