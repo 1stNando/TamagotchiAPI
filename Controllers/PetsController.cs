@@ -244,6 +244,7 @@ namespace TamagotchiAPI.Controllers
         [HttpPost("{id}/Scoldings")]
         public async Task<ActionResult<Scolding>> PostScolding(int id)
         {
+            var scolding = new Scolding();
             var pet = await _context.Pets.FindAsync(id);
 
             if (pet == null)
@@ -252,14 +253,20 @@ namespace TamagotchiAPI.Controllers
             }
             else
             {
+                scolding.PetId = pet.Id;
+                scolding.When = DateTime.Now;
                 pet.HappinessLevel -= 5;
             }
 
-            // Indicate to the database context we want to add this new record
-            _context.Scoldings.Add(id);//???????????????????????
+            // // Indicate to the database context we want to add this new record
+            // _context.Scoldings.Add(id);//???????????????????????
+            // await _context.SaveChangesAsync();
+
+            // return Ok(pet);
+            _context.Scoldings.Add(scolding);
             await _context.SaveChangesAsync();
 
-            return Ok(pet);
+            return Ok();
         }
 
 
