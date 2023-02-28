@@ -37,6 +37,9 @@ namespace TamagotchiAPI.Models
 
                 var conn = databaseURL != null ? ConvertPostConnectionToConnectionString(databaseURL) : defaultConnectionString;
 
+                //Error message having to do with "TimeStamp" formatting. Fixed issue with:
+                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
                 optionsBuilder.UseNpgsql(conn);
             }
         }
