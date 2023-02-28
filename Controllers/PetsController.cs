@@ -36,9 +36,9 @@ namespace TamagotchiAPI.Controllers
             // Uses the database context in `_context` to request all of the Pets, sort
             // them by row id and return them as a JSON array.
             return await _context.Pets.OrderBy(row => row.Id)
-            .Include(pet => pet.Playtimes)
+            //.Include(pet => pet.Playtimes)
             .Include(pet => pet.Feedings)
-            .Include(Pet => pet.Scoldings)
+            .Include(pet => pet.Scoldings)
             .ToListAsync();
 
         }

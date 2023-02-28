@@ -22,7 +22,7 @@ namespace TamagotchiAPI.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TamagotchiAPI.Models.Feedings", b =>
+            modelBuilder.Entity("TamagotchiAPI.Models.Feeding", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,6 +37,8 @@ namespace TamagotchiAPI.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PetId");
 
                     b.ToTable("Feedings");
                 });
@@ -66,7 +68,7 @@ namespace TamagotchiAPI.Migrations
                     b.ToTable("Pets");
                 });
 
-            modelBuilder.Entity("TamagotchiAPI.Models.PlayTimes", b =>
+            modelBuilder.Entity("TamagotchiAPI.Models.Playtime", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,10 +84,12 @@ namespace TamagotchiAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlayTimes");
+                    b.HasIndex("PetId");
+
+                    b.ToTable("Playtimes");
                 });
 
-            modelBuilder.Entity("TamagotchiAPI.Models.Scoldings", b =>
+            modelBuilder.Entity("TamagotchiAPI.Models.Scolding", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -101,7 +105,51 @@ namespace TamagotchiAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PetId");
+
                     b.ToTable("Scoldings");
+                });
+
+            modelBuilder.Entity("TamagotchiAPI.Models.Feeding", b =>
+                {
+                    b.HasOne("TamagotchiAPI.Models.Pet", "Pet")
+                        .WithMany("Feedings")
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pet");
+                });
+
+            modelBuilder.Entity("TamagotchiAPI.Models.Playtime", b =>
+                {
+                    b.HasOne("TamagotchiAPI.Models.Pet", "Pet")
+                        .WithMany("PlayTimes")
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pet");
+                });
+
+            modelBuilder.Entity("TamagotchiAPI.Models.Scolding", b =>
+                {
+                    b.HasOne("TamagotchiAPI.Models.Pet", "Pet")
+                        .WithMany("Scoldings")
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pet");
+                });
+
+            modelBuilder.Entity("TamagotchiAPI.Models.Pet", b =>
+                {
+                    b.Navigation("Feedings");
+
+                    b.Navigation("PlayTimes");
+
+                    b.Navigation("Scoldings");
                 });
 #pragma warning restore 612, 618
         }

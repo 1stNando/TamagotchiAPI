@@ -93,6 +93,8 @@ namespace TamagotchiAPI
             {
                 endpoints.MapControllers();
             });
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
     }
 }
