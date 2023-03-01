@@ -9,11 +9,11 @@ using TamagotchiAPI.Models;
 
 namespace TamagotchiAPI.Controllers
 {
-    // All of these routes will be at the base URL:     /api/Pets
+    // All of these routes will be at the base URL:     /api/Pets, http://localhost:5000/index.html in swagger.
     // That is what "api/[controller]" means below. It uses the name of the controller
     // in this case PetsController to determine the URL
     [Route("api/[controller]")]
-    [ApiController] //http://localhost:5000/index.html
+    [ApiController]
     public class PetsController : ControllerBase
     {
         // This is the variable you use to have access to your database
@@ -77,7 +77,7 @@ namespace TamagotchiAPI.Controllers
         // supplies to the names of the attributes of our Pet POCO class. This represents the
         // new values for the record.
         //
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]//ie: http://localhost:5000/api/Pets/1
         public async Task<IActionResult> PutPet(int id, Pet pet)
         {
             // If the ID in the URL does not match the ID in the supplied request body, return a bad request
@@ -195,25 +195,6 @@ namespace TamagotchiAPI.Controllers
                 await _context.SaveChangesAsync();
                 return Ok(playtime);
             };
-
-            //BELOW IS MY FIRST ATTEMPT AT APPLYING THE LOGIC 
-            //Playtime current time??
-            // var playTime = new PlayTimes();
-
-            // playTime.When = DateTime.Now;
-
-            // playTime.PetId = id;
-
-            // _context.PlayTimes.Add(playTime);
-            // await _context.SaveChangesAsync();
-
-            //_context.Entry(pet).State = EntityState.Modified;
-
-            //_context.PlayTimes.Add(PlayTimes);
-
-            // await _context.SaveChangesAsync();
-
-            // return Ok(pet);
         }
 
         [HttpPost("{id}/Feedings")]
@@ -266,7 +247,7 @@ namespace TamagotchiAPI.Controllers
             _context.Scoldings.Add(scolding);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(scolding);
         }
 
 
