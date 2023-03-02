@@ -4,6 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TamagotchiAPI.Models;
 using TamagotchiAPI.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 
 namespace TamagotchiAPI
 {
@@ -21,6 +25,36 @@ namespace TamagotchiAPI
                 if (!canContinue)
                 {
                     return;
+                }
+            }
+
+            // var task = host.RunAsync();
+
+            // Utilities.Notify("TamagotchiAPI Running!");
+
+            // WebHostExtensions.WaitForShutdown(host);
+
+            //////////////////////Beginning of console app set up 
+            var context2 = new DatabaseContext();
+
+            var keepGoing = true;
+
+            while (keepGoing)
+            {
+                Console.Write("(L)ist pets. (C)reate pet. (D)elete pet. (U)pdate pet. (Q)uit: ");
+                var option = Console.ReadLine().ToUpper();
+
+                switch (option)
+                {
+                    case "Q":
+                        keepGoing = false;
+                        break;
+
+                    case "L":
+                        var allPets = context2.Pets.Count();
+
+                        Console.WriteLine(allPets);
+                        break;
                 }
             }
 
