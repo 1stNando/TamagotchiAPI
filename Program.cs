@@ -58,6 +58,7 @@ namespace TamagotchiAPI
                 }
             }
 
+            //I moved this down here to make room for the console app menu above
             var task = host.RunAsync();
 
             Utilities.Notify("TamagotchiAPI Running!");

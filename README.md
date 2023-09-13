@@ -16,6 +16,7 @@ dotnet new sdg-api -o TamagotchiAPI
 
 Resources
 
+
     Web API Tutorial
     Web API docs
 
@@ -81,3 +82,26 @@ Create a console app that interacts with the API that:
     Select a pet to take care of and then play with, scold, or feed the selected pet.
     Create a new pet.
     Delete a pet.
+
+
+-------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!NANDO Wrote:!!!!!!!!!!!!!!!!!!!!---------------------
+Personal note:
+When using Insomnia to communicate with the API these are how the endpoints should look like:
+                                                                                        |||
+                                                                                        vvv
+Here is the HTTP GET request to retrieve the details for all pet
+http://localhost:5000/api/Pets
+
+To CREATE a Pet: use POST.
+http://localhost:5000/api/Pets, Use this URL to sent a POST request along with the JSON field are in the request to be {"name": "Ziguragotchi"} as an example illustrating creating a pet. 
+
+How do we send requests to FEED, PLAY, and SCOLD?
+We send a POST request that includes that {id} of the specific pet. Here is an example:
+POST
+
+https://localhost.5000/api/Pets/5/Feedings
+https://localhost.5000/api/Pets/5/Playtimes
+https://localhost.5000/api/Pets/5/Scoldings
+
+
+
