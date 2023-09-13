@@ -105,3 +105,10 @@ https://localhost.5000/api/Pets/5/Scoldings
 
 
 
+
+
+////////////
+nando@Fernandos-MBP TamagotchiAPI % heroku apps:create tamagotchiapi2023
+Creating ⬢ tamagotchiapi2023... done
+https://tamagotchiapi2023-6503c2f43906.herokuapp.com/ | https://git.heroku.com/tamagotchiapi2023.git
+URL FOR created deployed app on heroku. 
